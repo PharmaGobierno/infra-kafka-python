@@ -26,7 +26,6 @@ class KafkaConnectionConf:
     def __init__(
         self,
         *,
-        session_timeout: int = 30000,
         security_protocol: str = "SASL_SSL",  # "PLAINTEXT"
         sasl_mechanisms: str = "PLAIN",
         servers: Optional[List[str]] = None,
@@ -37,7 +36,6 @@ class KafkaConnectionConf:
         if servers is not None:
             servers_str = ",".join(servers)
         self.__config = {
-            "session.timeout.ms": session_timeout,
             "bootstrap.servers": servers_str or get_default_env("KAFKA_SERVERS"),
             "sasl.username": username or get_default_env("KAFKA_USERNAME"),
             "sasl.password": password or get_default_env("KAFKA_PASSWORD"),
@@ -75,11 +73,13 @@ class KafkaConsumer:
         connection_conf: KafkaConnectionConf,
         *,
         group_id: Optional[str] = None,
+        session_timeout: int = 30000,
         auto_offset_reset: str = "lastest",  # reads only new messages
     ) -> None:
         self._connection_conf = connection_conf
         self._consumer_conf = {
             "group.id": group_id or get_default_env("KAFKA_GROUP_ID"),
+            "session.timeout.ms": session_timeout,
             "auto.offset.reset": auto_offset_reset,
         }
         self._consumer_conf.update(self._connection_conf.get_config())

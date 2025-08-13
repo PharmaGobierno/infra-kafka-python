@@ -41,7 +41,7 @@ class KafkaConnectionConf:
             "sasl.mechanisms": sasl_mechanisms,
             "auto.offset.reset": auto_offset_reset,
         }
-        if sasl_mechanisms != "PLAIN" or security_protocol != "PLAINTEXT":
+        if sasl_mechanisms != "PLAIN":
             # ssl_congif = {
             #     "ssl.endpoint.identification.algorithm": "?",
             #     "ssl.ca.location": "server.cer.pem",

@@ -3,7 +3,7 @@ from __future__ import annotations
 from os import getenv
 from typing import Any, Callable, Optional
 
-from confluent_kafka import Consumer, KafkaError, KafkaException, Message
+from confluent_kafka import Consumer, KafkaError, KafkaException, Message, Producer
 
 
 def get_default_env(name: str) -> str:
@@ -114,7 +114,7 @@ class KafkaProducer:
             "client.id": client_id or get_default_env("KAFKA_CLIENT_ID"),
         }
         self._producer_conf.update(self._connection_conf.get_config())
-        self._producer = Consumer(self._producer_conf)
+        self._producer = Producer(self._producer_conf)
 
     def produce(
         self,

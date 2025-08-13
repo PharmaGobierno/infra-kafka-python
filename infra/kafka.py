@@ -28,7 +28,7 @@ class KafkaConnectionConf:
         *,
         session_timeout: int = 30000,
         auto_offset_reset: str = "lastest",  # reads only new messages
-        security_protocol: str = "PLAINTEXT",
+        security_protocol: str = "SASL_SSL",  # "PLAINTEXT"
         sasl_mechanisms: str = "PLAIN",
     ) -> None:
         self.__config = {

@@ -74,7 +74,7 @@ class KafkaConsumer:
         *,
         group_id: Optional[str] = None,
         session_timeout: int = 30000,
-        auto_offset_reset: str = "lastest",  # reads only new messages
+        auto_offset_reset: str = "latest",  # reads only new messages
     ) -> None:
         self._connection_conf = connection_conf
         self._consumer_conf = {
